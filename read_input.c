@@ -15,13 +15,13 @@ char *read_input(void)
 		if (feof(stdin))
 		{
 			free (line);
-			exit(successful_exit);
+			exit(EXIT_SUCCESS);
 		}
 		else
 		{
 			free(line);
 			perror("error while reading line from stdin");
-			exit(failed);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (line);
