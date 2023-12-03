@@ -11,10 +11,9 @@ char *read_input(void)
 	size_t buf = 0;
 
 	if (getline(&line, &buf, stdin) == -1)
-	{	
+	{
 		if (feof(stdin))
-		{
-			free (line);
+		{	free(line);
 			exit(EXIT_SUCCESS);
 		}
 		else
