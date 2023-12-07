@@ -6,10 +6,11 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include <sys?wait.h>
+#include <sys/wait.h>
 
 
 /*This are the prototypes used */
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 
 
 
