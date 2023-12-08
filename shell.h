@@ -12,7 +12,7 @@
 
 /*This are the prototypes used */
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
-
+char *_strdup(char *str);
 
 
 

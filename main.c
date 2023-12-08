@@ -13,10 +13,12 @@ int main(int argc, char *argv[])
 
 	(void)argc, (void)argv;
 	size_t amt = 0 ;
-	char *buffer = NULL;
+	char *token,*buffer = NULL;
 	ssize_t amt_read;
 	pid new_pid;
 	int result;
+	char **array;
+	int i;
 
 	while(true)
 	{
@@ -29,10 +31,21 @@ int main(int argc, char *argv[])
 	else if 
 		(_strcmp(buffer,"exit")== 0)
 		{
-			free(buffer)
-			exit(0)
+			free(buffer);
+			exit(0);
 		}
-			
+	token = strtok(buffer , "\n");
+
+	array = malloc(sizeof(char*) * 1024;
+	int i = 0
+	while (token)
+	{
+		array[i] = token;
+		token = strtok(NULL, "\n");
+		i++;
+	}
+	
+	array[i] = NULL;
 	new_pid = fork();
 	if (new_pid == -1)
 	{
@@ -50,7 +63,7 @@ int main(int argc, char *argv[])
 	wait(&result);	
 	}
 	
-	}
+	
 	free(buffer);
 	return(0);
 	
