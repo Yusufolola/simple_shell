@@ -22,17 +22,22 @@ int main(int argc, char *argv[])
 	{
 	write(STDOUT_FILENO, "ENTER $ ", 8);
 	amt_read = getline(&buffer, &amt, stdin);
-	if (amt_read == -1)
+	if (amt_read == -1) || (amt_read == EOF)
 	{
-		perror("Error reading input");
-			exit(1);
+		break;
 	}
-	
+	else if 
+		(_strcmp(buffer,"exit")== 0)
+		{
+			free(buffer)
+			exit(0)
+		}
+			
 	new_pid = fork();
 	if (new_pid == -1)
 	{
 		perror("duplicate child failed");
-		exir (1);
+		exit (1);
 	}
 	if (new_pid == 0)
 	{
