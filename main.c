@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	int result;
 	char **array;
 	int i;
+	char *route;
 
 	while(true)
 	{
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
 	}
 	
 	array[i] = NULL;
+	route = obtainFileRoute(array[0]);
 	new_pid = fork();
 	if (new_pid == -1)
 	{
@@ -55,10 +57,10 @@ int main(int argc, char *argv[])
 	if (new_pid == 0)
 	{
 	/*duplicate process valid, user input can be executed */
-		if (execve(array[0],array,NULL) == -1)
+		if (execve(route,array,NULL) == -1)
 		{
 			perror("program failed");
-			exit(1);
+			exit(97);
 		}
 	}
 	else
