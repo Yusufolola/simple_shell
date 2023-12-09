@@ -11,18 +11,18 @@
  *         Greater than 0 if str1 is longer than str2.
  */
 
-int _strncmp(const char *s1, const char *s2, size_t n)
+int _strncmp(const char *str1, const char *str2, size_t a)
 {
 	size_t i;
 
-	for (i = 0; s1[i] && s2[i] && i < n; i++)
+	for (i = 0; str1[i] && str2[i] && i < a; i++)
 	{
-		if (s1[i] > s2[i])
-			return (s1[i] - s2[i]);
-		else if (s1[i] < s2[i])
-			return (s1[i] - s2[i]);
+		if (str1[i] > str2[i])
+			return (str1[i] - str2[i]);
+		else if (str1[i] < str2[i])
+			return (str1[i] - str2[i]);
 	}
-	if (i == n)
+	if (i ==a)
 		return (0);
 	else
 		return (-15);
