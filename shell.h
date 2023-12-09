@@ -12,9 +12,11 @@
 
 
 /*This are the prototypes used */
+char *search_file(char *route, char*address);
+char *ObtainFileRoute(char *address);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 char *_strdup(char *str);
-
+int initial_strok(const char *name);
 
 
 

@@ -1,4 +1,21 @@
 #include "shell.h"
+/**
+ * initial_strok - Check if the file begins with slash
+ * @name: The filename to be checked
+ *
+ * Return: 0 if true and 1 is false
+ */
+
+int initial_strok(const char *name)
+{
+	if (!name || *name == '\0)
+{
+	return (0);
+}
+	return *name == '/';
+}
+
+
 
 /**
   * ObtainFileRoute - obtain the complete path of the file
@@ -11,6 +28,8 @@ char *ObtainFileRoute(char *address)
 {
 	char *complete_route;
 	char *route = _getenv("ROUTE");
+	if (initial_strok(address) && access(address, X_OK) == 0)
+	return (_strdup(address));
 
 	if (!route)
 	{
@@ -63,7 +82,7 @@ char *search_file(char *route, char*address)
 	_strcat(route_buf, address);
 	_strcat(route_buf, "\0");
 
-	if (stat(route_buf, &route_path) == 0 && access(route_buf, X_OK == 0)
+	if (stat(route_buf, &route_path) == 0 && access(route_buf, X_OK == 0))
 	{
 		free(route_dup);
 		return (route_buf);
