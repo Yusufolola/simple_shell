@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	size_t amt = 0 ;
 	char *token,*buffer = NULL;
 	ssize_t amt_read;
-	pid new_pid;
+	pid_t new_pid;
 	int result;
 	char **array;
 	int i;
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	{
 	write(STDOUT_FILENO, "ENTER $ ", 8);
 	amt_read = getline(&buffer, &amt, stdin);
-	if (amt_read == -1) || (amt_read == EOF)
+	if ((amt_read == -1) || (amt_read == EOF))
 	{
 		break;
 	}
@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
 		}
 	token = strtok(buffer , "\n");
 
-	array = malloc(sizeof(char*) * 1024;
-	int i = 0
+	array = malloc(sizeof(char*) * 1024);
+	int i = 0;
 	while (token)
 	{
 		array[i] = token;
@@ -55,16 +55,22 @@ int main(int argc, char *argv[])
 	if (new_pid == 0)
 	{
 	/*duplicate process valid, user input can be executed */
-	print_code("Process creation valid\n");
+		if (execve(array[0],array,NULL) == -1)
+		{
+			perror("program failed");
+			exit(1);
+		}
 	}
 	else
 	{
 		/*child process run before ending the parent processs */
 	wait(&result);	
-	}
+	}	perror("program failed");
+	exit(1);
 	
 	
 	free(buffer);
 	return(0);
 	
+}
 }
