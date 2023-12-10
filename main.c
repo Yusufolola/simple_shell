@@ -10,16 +10,19 @@
 
 int main(int argc, char *argv[])
 {	
-
-	(void)argc, (void)argv;
 	size_t amt = 0 ;
-	char *token,*buffer = NULL;
 	ssize_t amt_read;
+	char *token, *buffer = NULL;
+
+/*	(void)argc, (void)argv; */
+
+/*	ssize_t amt_read; */
 	pid_t new_pid;
 	int result;
 	char **array;
 	int i;
 	char *route;
+	(void)argc, (void)argv;	
 
 	while(true)
 	{
@@ -39,7 +42,7 @@ int main(int argc, char *argv[])
 	token = strtok(buffer , "\n");
 
 	array = malloc(sizeof(char*) * 1024);
-	int i = 0;
+	 i = 0;
 	while (token)
 	{
 		array[i] = token;
@@ -69,10 +72,9 @@ int main(int argc, char *argv[])
 		/*child process run before ending the parent processs */
 	wait(&result);	
 	}
-	
+	}
 	free(route);
 	free(buffer);
 	return(0);
 	
-}
 }
