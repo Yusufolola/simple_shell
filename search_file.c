@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * initial_strok - Check if the file begins with slash
  * @name: The filename to be checked

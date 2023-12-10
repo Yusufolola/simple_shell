@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
 
 	while(true)
 	{
+	if (isatty(STDIN_FILENO))
 	write(STDOUT_FILENO, "ENTER $ ", 8);
 	amt_read = getline(&buffer, &amt, stdin);
 	if ((amt_read == -1) || (amt_read == EOF))
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
 	}
 	
 	array[i] = NULL;
-	route = obtainFileRoute(array[0]);
+	route = ObtainFileRoute(array[0]);
 	new_pid = fork();
 	if (new_pid == -1)
 	{
@@ -67,10 +68,9 @@ int main(int argc, char *argv[])
 	{
 		/*child process run before ending the parent processs */
 	wait(&result);	
-	}	perror("program failed");
-	exit(1);
+	}
 	
-	
+	free(route);
 	free(buffer);
 	return(0);
 	
