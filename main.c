@@ -26,52 +26,50 @@ int main(int argc, char *argv[])
 
 	while(true)
 	{
-	if (isatty(STDIN_FILENO))
-	write(STDOUT_FILENO, "ENTER $ ", 8);
-	amt_read = getline(&buffer, &amt, stdin);
-	if ((amt_read == -1) || (amt_read == EOF))
-	{
+		if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "ENTER $ ", 8);
+		amt_read = getline(&buffer, &amt, stdin);
+		if ((amt_read == -1) || (amt_read == EOF))
+		{
 		break;
-	}
-	else if 
-		(_strcmp(buffer,"exit")== 0)
+		}
+		else if (_strcmp(buffer,"exit")== 0)
 		{
 			free(buffer);
 			exit(0);
 		}
-	token = strtok(buffer , "\n");
-
-	array = malloc(sizeof(char*) * 1024);
-	 i = 0;
-	while (token)
-	{
-		array[i] = token;
-		token = strtok(NULL, "\n");
-		i++;
-	}
-	
-	array[i] = NULL;
-	route = ObtainFileRoute(array[0]);
-	new_pid = fork();
-	if (new_pid == -1)
-	{
-		perror("duplicate child failed");
-		exit (1);
-	}
-	if (new_pid == 0)
-	{
-	/*duplicate process valid, user input can be executed */
-		if (execve(route,array,NULL) == -1)
+		token = strtok(buffer , "\n");
+		array = malloc(sizeof(char*) * 1024);
+		 i = 0;
+		while (token)
 		{
+			array[i] = token;
+			token = strtok(NULL, "\n");
+			i++;
+		}
+	
+		array[i] = NULL;
+		route = ObtainFileRoute(array[0]);
+		new_pid = fork();
+		if (new_pid == -1)
+		{
+			perror("duplicate child failed");
+			exit (1);
+		}
+		if (new_pid == 0)
+		{
+			/*duplicate process valid, user input can be executed */
+			if (execve(route,array,NULL) == -1)
+			{
 			perror("program failed");
 			exit(97);
+			}
 		}
-	}
-	else
-	{
-		/*child process run before ending the parent processs */
-	wait(&result);	
-	}
+		else
+		{
+			/*child process run before ending the parent processs */
+			wait(&result);	
+		}
 	}
 	free(route);
 	free(buffer);
