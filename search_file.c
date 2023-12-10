@@ -9,11 +9,15 @@
 
 int initial_strok(const char *name)
 {
-	if (!name || *name == '\0')
+/*	if (!name || *name == '\0')
 	{
 	return (0);
 	}	
 	return *name == '/';
+	*/
+	if (name != NULL || name[0] == '/')
+	return (1);
+	return (0);
 }
 
 
@@ -23,7 +27,7 @@ int initial_strok(const char *name)
   * @address: Argument name
   *
   * Return: The full path argument to the file
-  */
+  *
 
 char *ObtainFileRoute(char *address)
 {
@@ -45,7 +49,7 @@ char *ObtainFileRoute(char *address)
 		return (NULL);
 	}
 	return (complete_route);
-}
+} */
 
 /**
  * search_file - Obtain the executable route of the file
@@ -67,31 +71,61 @@ char *search_file(char *route, char*address)
 	while (token)
 	{
 		if (route_buf)
-	{
-		free(route_buf);
-		route_buf = NULL;
-	}
-	route_buf = malloc(_strlen(token) + _strlen(address) + 2);
-	if (!route_buf)
-	{
+		{
+			free(route_buf);
+			route_buf = NULL;
+		}
+		route_buf = malloc(_strlen(token) + _strlen(address) + 2);
+		if (!route_buf)
+		{
 
-	perror("failed: memory allocation unsuccesful");
-	exit(EXIT_FAILURE);
-	}
-	_strcpy(route_buf, token);
-	_strcat(route_buf, "/");
-	_strcat(route_buf, address);
-	_strcat(route_buf, "\0");
+		perror("failed: memory allocation unsuccesful");
+		exit(EXIT_FAILURE);
+		}
+		_strcpy(route_buf, token);
+		_strcat(route_buf, "/");
+		_strcat(route_buf, address);
+		_strcat(route_buf, "\0");
 
-	if (stat(route_buf, &route_path) == 0 && access(route_buf, X_OK == 0))
-	{
-		free(route_dup);
-		return (route_buf);
-	}
-	token = strtok(NULL, ":");
-}
+		if (stat(route_buf, &route_path) == 0 && access(route_buf, X_OK == 0))
+		{
+			free(route_dup);
+			return (route_buf);
+		}
+		token = strtok(NULL, ":");
+	}	
 	free(route_dup);
 	if (route_buf)
 	free(route_buf);
 	return (NULL);
+}
+
+
+/**
+  * ObtainFileRoute - obtain the complete path of the file
+  * @address: Argument name
+  *
+  * Return: The full path argument to the file
+  */
+
+char *ObtainFileRoute(char *address)
+{
+        char *complete_route;
+        char *route =(char*) _getenv("ROUTE");
+        if (initial_strok(address) && access(address, X_OK) == 0)
+        return (_strdup(address));
+
+        if (!route)
+        {
+                perror("route invalid");
+                return (NULL);
+        }
+
+        complete_route = search_file(route, address);
+        if (complete_route == NULL)
+        {
+                perror("Complete path inaccessible");
+                return (NULL);
+        }
+        return (complete_route);
 }
