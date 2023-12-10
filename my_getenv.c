@@ -12,10 +12,10 @@ char **_getenv(const char*path)
 {
 	extern char **environ;
 	int loop, i;
-	i = _strlen(path);
-	for(i = 0; environ[i]; i++)
+	i = _strlen((char*)path);
+	for(loop = 0; loop <= i; loop++)
 		{
-			if(_strncmp(path, environ[i], loop) == 0)
+			if(_strcmp((char*)path, environ[i]) == 0)
 			return(&environ[i]);
 		}
 	return (NULL);

@@ -9,10 +9,10 @@
 
 int initial_strok(const char *name)
 {
-	if (!name || *name == '\0)
-{
+	if (!name || *name == '\0')
+	{
 	return (0);
-}
+	}	
 	return *name == '/';
 }
 
@@ -28,7 +28,7 @@ int initial_strok(const char *name)
 char *ObtainFileRoute(char *address)
 {
 	char *complete_route;
-	char *route = _getenv("ROUTE");
+	char *route =(char*) _getenv("ROUTE");
 	if (initial_strok(address) && access(address, X_OK) == 0)
 	return (_strdup(address));
 

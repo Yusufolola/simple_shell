@@ -9,6 +9,6 @@
 
 void print_code(const char *receive)
 {
-	write(STDOUT_FILENO, receive, _strlen(receive));
+	write(STDOUT_FILENO, &receive, _strlen((char*)receive));
 }
 
