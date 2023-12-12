@@ -19,11 +19,10 @@ int main(int argc, char *argv[])
 /*	ssize_t amt_read; */
 	pid_t new_pid;
 	int result;
-	char **array;
 	int i;
 	char *route;
 
-	(void)**argv;	
+	
 	(void)argc;
 
 	while(true)
@@ -41,17 +40,17 @@ int main(int argc, char *argv[])
 			exit(0);
 		}
 		token = strtok(buffer , "\n");
-		array = malloc(sizeof(char*) * 1024);
+		argv = malloc(sizeof(char*) * 1024);
 		 i = 0;
 		while (token)
 		{
-			array[i] = token;
+			argv[i] = token;
 			token = strtok(NULL, "\n");
 			i++;
 		}
 	
-		array[i] = NULL;
-		route = ObtainFileRoute(array[0]);
+		argv[i] = NULL;
+		route = ObtainFileRoute(argv[0]);
 		new_pid = fork();
 		if (new_pid == -1)
 		{
@@ -60,9 +59,9 @@ int main(int argc, char *argv[])
 		}
 		if (new_pid == 0)
 		{
-			execve(route,array,NULL);
+			execve(route,argv,NULL);
 			/*duplicate process valid, user input can be executed */
-			if (execve(route,array,NULL) == -1)
+			if (execve(route,argv,NULL) == -1)
 			{
 			perror("program failed");
 			exit(97);
