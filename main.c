@@ -59,10 +59,10 @@ int main(int argc, char *argv[])
 		}
 		if (new_pid == 0)
 		{
-			execve(route,argv,NULL);
 			/*duplicate process valid, user input can be executed */
 			if (execve(route,argv,NULL) == -1)
 			{
+			printf("this is the %s",route);	
 			perror("program failed");
 			exit(97);
 			}
