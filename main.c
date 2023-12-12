@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 		}
 	
 		argv[i] = NULL;
-		route = ObtainFileRoute(argv[0]);
+		route = path_finder(argv[0]);
 		new_pid = fork();
 		if (new_pid == -1)
 		{

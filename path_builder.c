@@ -1,4 +1,4 @@
-#include <shell.h>
+#include "shell.h"
 /**
  * path_builder - helps build the path to the executable
  * @path: the full path from the environment
@@ -9,11 +9,11 @@
 
 char *path_builder(char *path, char *command)
 {
-	char *token,path_copy;
-	struc stat buffer;
+	char *token, *path_copy;
+	struct stat buffer;
 	char *file_path = NULL;
 
-	path_copy = _strdup(path);
+	path_copy =  _strdup(path);
 	token = strtok(path_copy,":");
 
 	while (token)
@@ -40,7 +40,7 @@ char *path_builder(char *path, char *command)
 		}
 	      else
 		{
-			free(file_path);
+	/*		free(file_path);*/
 			token =strtok(NULL, ":");
 		}
 	}
