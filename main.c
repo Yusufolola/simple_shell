@@ -22,14 +22,16 @@ int main(int argc, char *argv[])
 	char **array;
 	int i;
 	char *route;
-	(void)argc, (void)argv;	
+
+	(void)**argv;	
+	(void)argc;
 
 	while(true)
 	{
 		if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "ENTER $ ", 8);
 		amt_read = getline(&buffer, &amt, stdin);
-		if ((amt_read == -1) || (amt_read == EOF))
+		if (amt_read == -1)
 		{
 		break;
 		}
@@ -58,6 +60,7 @@ int main(int argc, char *argv[])
 		}
 		if (new_pid == 0)
 		{
+			execve(route,array,NULL);
 			/*duplicate process valid, user input can be executed */
 			if (execve(route,array,NULL) == -1)
 			{

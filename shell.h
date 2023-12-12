@@ -12,8 +12,8 @@
 
 
 /*This are the prototypes used */
-char *search_file(char *route, char*address);
-char *ObtainFileRoute(char *address);
+char *search_file(char *route, char*name);
+char *ObtainFileRoute(char *name);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 char *_strdup(char *str);
 int initial_strok(const char *name);
@@ -24,7 +24,7 @@ void print_code(const char *receive);
 int _strlen(char *s);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
-int _strncmp(const char *str1, const char *str2, size_t a);
+
 
 
 

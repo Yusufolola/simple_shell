@@ -9,57 +9,23 @@
 
 int initial_strok(const char *name)
 {
-/*	if (!name || *name == '\0')
-	{
+
+	if (name != NULL && name[0] == '/')
 	return (0);
-	}	
-	return *name == '/';
-	*/
-	if (name != NULL || name[0] == '/')
+	else
 	return (1);
-	return (0);
 }
 
-
-
-/**
-  * ObtainFileRoute - obtain the complete path of the file
-  * @address: Argument name
-  *
-  * Return: The full path argument to the file
-  *
-
-char *ObtainFileRoute(char *address)
-{
-	char *complete_route;
-	char *route =(char*) _getenv("ROUTE");
-	if (initial_strok(address) && access(address, X_OK) == 0)
-	return (_strdup(address));
-
-	if (!route)
-	{
-		perror("route invalid");
-		return (NULL);
-	}	
-
-	complete_route = search_file(route, address);
-	if (complete_route == NULL)
-	{
-		perror("Complete path inaccessible");
-		return (NULL);
-	}
-	return (complete_route);
-} */
 
 /**
  * search_file - Obtain the executable route of the file
  * @path: complete route path
- * @address: The executable file
+ * @name: The executable file
  *
  * Return: The complete route to the executable
  */
 
-char *search_file(char *route, char*address)
+char *search_file(char *route, char*name)
 {
 	char *route_dup, *token;
 	struct stat route_path;
@@ -75,24 +41,24 @@ char *search_file(char *route, char*address)
 			free(route_buf);
 			route_buf = NULL;
 		}
-		route_buf = malloc(_strlen(token) + _strlen(address) + 2);
+		route_buf = malloc(_strlen(token) + _strlen(name) + 2);
 		if (!route_buf)
 		{
 
-		perror("failed: memory allocation unsuccesful");
-		exit(EXIT_FAILURE);
+			perror("failed: memory allocation unsuccesful");
+			exit(EXIT_FAILURE);
 		}
-		_strcpy(route_buf, token);
-		_strcat(route_buf, "/");
-		_strcat(route_buf, address);
-		_strcat(route_buf, "\0");
+			_strcpy(route_buf, token);
+			_strcat(route_buf, "/");
+			_strcat(route_buf, name);
+			_strcat(route_buf, "\0");
 
-		if (stat(route_buf, &route_path) == 0 && access(route_buf, X_OK == 0))
+		if (stat(route_buf, &route_path) == 0 && access(route_buf, F_OK) == 0 && access(route_buf, X_OK) == 0)
 		{
 			free(route_dup);
 			return (route_buf);
 		}
-		token = strtok(NULL, ":");
+			token = strtok(NULL, ":");
 	}	
 	free(route_dup);
 	if (route_buf)
@@ -103,17 +69,17 @@ char *search_file(char *route, char*address)
 
 /**
   * ObtainFileRoute - obtain the complete path of the file
-  * @address: Argument name
+  * @name: Argument name
   *
   * Return: The full path argument to the file
   */
 
-char *ObtainFileRoute(char *address)
+char *ObtainFileRoute(char *name)
 {
         char *complete_route;
-        char *route =(char*) _getenv("ROUTE");
-        if (initial_strok(address) && access(address, X_OK) == 0)
-        return (_strdup(address));
+        char *route = getenv("PATH");
+        if (initial_strok(name) && access(name, F_OK) == 0)
+        return (_strdup(name));
 
         if (!route)
         {
@@ -121,7 +87,7 @@ char *ObtainFileRoute(char *address)
                 return (NULL);
         }
 
-        complete_route = search_file(route, address);
+        complete_route = search_file(route, name);
         if (complete_route == NULL)
         {
                 perror("Complete path inaccessible");
