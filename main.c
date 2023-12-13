@@ -39,13 +39,13 @@ int main(int argc, char *argv[])
 			free(buffer);
 			exit(0);
 		}
-		token = strtok(buffer , "\n");
-		argv = malloc(sizeof(char*) * 1024);
+		token = strtok(buffer , " \n");
+		argv = malloc(sizeof(char*) * amt_read);
 		 i = 0;
 		while (token)
 		{
 			argv[i] = token;
-			token = strtok(NULL, "\n");
+			token = strtok(NULL, " \n");
 			i++;
 		}
 	
@@ -61,8 +61,7 @@ int main(int argc, char *argv[])
 		{
 			/*duplicate process valid, user input can be executed */
 			if (execve(route,argv,NULL) == -1)
-			{
-			printf("this is the %s",route);	
+			{	
 			perror("program failed");
 			exit(97);
 			}
