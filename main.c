@@ -1,6 +1,8 @@
 #include "shell.h"
+void peel(void);
 
-/** main - Main access to our shell program
+/**
+ * main - Main access to our shell program
  * @argc: Argument count to the main function
  * @argv: Pointer to array of argument values
  *
@@ -9,8 +11,8 @@
 
 
 int main(int argc, char *argv[])
-{	
-	size_t amt = 0 ;
+{
+	size_t amt = 0;
 	ssize_t amt_read;
 	char *token, *buffer = NULL;
 
@@ -22,10 +24,11 @@ int main(int argc, char *argv[])
 	int i;
 	char *route;
 
-	
 	(void)argc;
+	(void)argv;
 
-	while(true)
+
+	while (true)
 	{
 		if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "ENTER $ ", 8);
@@ -34,13 +37,13 @@ int main(int argc, char *argv[])
 		{
 		break;
 		}
-		else if (_strcmp(buffer,"exit")== 0)
+		else if (_strcmp(buffer, "exit") == 0)
 		{
 			free(buffer);
 			exit(0);
 		}
-		token = strtok(buffer , " \n");
-		argv = malloc(sizeof(char*) * amt_read);
+		token = strtok(buffer, " \n");
+		argv = malloc(sizeof(char *) * amt_read);
 		 i = 0;
 		while (token)
 		{
@@ -48,20 +51,20 @@ int main(int argc, char *argv[])
 			token = strtok(NULL, " \n");
 			i++;
 		}
-	
+
 		argv[i] = NULL;
 		route = path_finder(argv[0]);
 		new_pid = fork();
 		if (new_pid == -1)
 		{
 			perror("duplicate child failed");
-			exit (1);
+			exit(1);
 		}
 		if (new_pid == 0)
 		{
 			/*duplicate process valid, user input can be executed */
-			if (execve(route,argv,NULL) == -1)
-			{	
+			if (execve(route, argv, NULL) == -1)
+			{
 			perror("program failed");
 			exit(97);
 			}
@@ -69,11 +72,11 @@ int main(int argc, char *argv[])
 		else
 		{
 			/*child process run before ending the parent processs */
-			wait(&result);	
+			wait(&result);
 		}
 	}
 	free(route);
 	free(buffer);
-	return(0);
-	
+	return (0);
+
 }
