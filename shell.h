@@ -19,6 +19,7 @@ char *path_finder(char *command);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 char *_strdup(char *str);
 int initial_strok(const char *name);
+extern char **environ;
 
 char **_getenv(const char*path); 
 int _strcmp(char *s1, char *s2);
