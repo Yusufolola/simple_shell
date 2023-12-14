@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 		}
 		route = path_finder(argv[0]);
 		new_pid = fork();
-		if (new_pid == <0)
+		if (new_pid == -1)
 		{
 			perror("duplicate child failed");
 			exit(-1);
@@ -77,8 +77,8 @@ int main(int argc, char *argv[])
 		else
 		{
 			/*child process run before ending the parent processs */
-			wait(&status);
-			errno = status;
+			wait(&result);
+			errno = result;
 			free(argv);
 		}
 	}
