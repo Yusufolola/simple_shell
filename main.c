@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
 			wait(&result);
 			errno = result;
 			free(argv);
+
 		}
 	}
 	free(route);

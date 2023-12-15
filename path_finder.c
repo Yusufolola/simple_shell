@@ -7,8 +7,11 @@
 
 char *path_finder(char *command)
 {
+/*	char *abs_path; */
 	char *abs_path;
-	char *path = getenv("PATH");
+/*	char *path = getenv("PATH"); */
+	 char **path;
+	path = _getenv("PATH");
 
 	if (!path)
 	{
@@ -16,7 +19,8 @@ char *path_finder(char *command)
 		return (NULL);
 	}
 
-	abs_path = path_builder(path, command);
+	abs_path = path_builder((char *)path, command);
+/*	abs_path = path_builder(path, command); */
 
 	if (abs_path == NULL)
 	{

@@ -20,12 +20,13 @@ char *path_finder(char *command);
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 char *_strdup(char *str);
 int initial_strok(const char *name);
+/*global environment declaration */
 extern char **environ;
-
+int _strncmp(const char *str1, const char *str2, size_t a);
 char **_getenv(const char*path); 
 int _strcmp(char *s1, char *s2);
 void print_code(const char *receive);
-int _strlen(char *s);
+int _strlen(const char *s);
 char *path_builder(char *path, char *command);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
