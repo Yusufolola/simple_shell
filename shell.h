@@ -30,7 +30,7 @@ int _strlen(const char *s);
 char *path_builder(char *path, char *command);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
-
+void *_realloc(void *addr, unsigned int pre_size, unsigned int cur_size);void assign_lineaddr(char **lineaddr, size_t *size, char *buf, size_t b);ssize_t _getline(char **lineaddr, size_t *size, FILE *src);
 
 
 
