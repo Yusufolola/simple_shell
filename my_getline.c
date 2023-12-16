@@ -86,7 +86,7 @@ void assign_lineaddr(char **lineaddr, size_t *size, char *buf, size_t b)
 /**
  * _getline - Reads input from a stream.
  * @lineaddr: A bufer to store the string entry
- * @size: The size of lineaddr.
+ * @size: The size of lineaddr in the prototype.
  * @src: The stream to read from.
  *
  * Return: The number of bytes read.
